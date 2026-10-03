@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e91e63">
+<title>Rosea Kasir</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fff5f8;
+  color:#333;
+}
+
+header{
+  background:linear-gradient(135deg,#e91e63,#ff6b9d);
+  color:white;
+  padding:18px;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-content{
+  max-width:1200px;
+  margin:auto;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.logo span{
+  display:block;
+  font-size:12px;
+  letter-spacing:2px;
+  margin-top:3px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:15px;
+}
+
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #f1ccd9;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+  margin-bottom:12px;
+}
+
+.search:focus{
+  border-color:#e91e63;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:12px;
+}
+
+.categories button{
+  white-space:nowrap;
+  padding:10px 15px;
+  border-radius:25px;
+  border:1px solid #e91e63;
+  background:white;
+  color:#e91e63;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.categories button.active{
+  background:#e91e63;
+  color:white;
+}
+
+.main{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:15px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:12px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  padding:14px;
+  border:1px solid #f2d8e1;
+  box-shadow:0 2px 7px rgba(0,0,0,.06);
+}
+
+.product h3{
+  margin:0 0 5px;
+  font-size:17px;
+}
+
+.product-category{
+  font-size:11px;
+  color:#999;
+  margin-bottom:10px;
+}
+
+.price-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.price-buttons button{
+  border:0;
+  border-radius:9px;
+  background:#ffe1eb;
+  color:#c2185b;
+  padding:8px 10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.price-buttons button:hover{
+  background:#e91e63;
+  color:white;
+}
+
+.cart-panel{
+  background:white;
+  border:1px solid #f2d8e1;
+  border-radius:15px;
+  padding:15px;
+  height:max-content;
+  position:sticky;
+  top:100px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.cart-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.cart-items{
+  max-height:330px;
+  overflow-y:auto;
+}
+
+.empty{
+  text-align:center;
+  color:#999;
+  padding:30px 10px;
+}
+
+.cart-item{
+  border-bottom:1px solid #eee;
+  padding:10px 0;
+}
+
+.cart-item-name{
+  font-weight:bold;
+}
+
+.cart-item-info{
+  font-size:12px;
+  color:#888;
+  margin-top:3px;
+}
+
+.cart-item-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:7px;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.qty button{
+  border:0;
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  background:#f8d5e1;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.total{
+  border-top:2px solid #eee;
+  margin-top:10px;
+  padding-top:12px;
+  font-size:22px;
+  font-weight:bold;
+  color:#e91e63;
+}
+
+.payment{
+  margin-top:12px;
+}
+
+.payment label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.payment input{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:16px;
+}
+
+.change{
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  background:#f8f4f6;
+  font-weight:bold;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  padding:13px;
+  border-radius:10px;
+  margin-top:8px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-primary{
+  background:#e91e63;
+  color:white;
+}
+
+.btn-primary:hover{
+  background:#c2185b;
+}
+
+.btn-secondary{
+  background:#f0e8eb;
+  color:#555;
+}
+
+.btn-green{
+  background:#159957;
+  color:white;
+}
+
+.history-section{
+  margin-top:20px;
+  display:none;
+}
+
+.history-section.show{
+  display:block;
+}
+
+.history-box{
+  background:white;
+  border-radius:15px;
+  border:1px solid #f2d8e1;
+  padding:15px;
+}
+
+.history-item{
+  border:1px solid #eee;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:8px;
+}
+
+.history-header{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.history-items{
+  color:#777;
+  font-size:13px;
+  margin:7px 0;
+}
+
+.history-total{
+  font-weight:bold;
+  color:#e91e63;
+}
+
+.history-buttons{
+  display:flex;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.history-buttons button{
+  flex:1;
+  padding:11px;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.receipt{
+  display:none;
+}
+
+@media(max-width:800px){
+  .main{
+    grid-template-columns:1fr;
+  }
+
+  .cart-panel{
+    position:static;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:420px){
+  .products{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .product{
+    padding:10px;
+  }
+
+  .product h3{
+    font-size:15px;
+  }
+
+  .price-buttons button{
+    font-size:11px;
+    padding:7px;
+  }
+}
+
+@media print{
+  body *{
+    visibility:hidden;
+  }
+
+  #receipt,
+  #receipt *{
+    visibility:visible;
+  }
+
+  #receipt{
+    display:block !important;
+    position:absolute;
+    left:0;
+    top:0;
+    width:280px;
+    padding:10px;
+    font-family:monospace;
+    color:#000;
+    background:#fff;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo">
+      🌹 ROSEA
+      <span>JUICE & DRINK • KASIR</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="🔎 Cari menu..."
+  >
+
+  <div id="categories" class="categories"></div>
+
+  <div class="main">
+
+    <div>
+      <div id="products" class="products"></div>
+    </div>
+
+    <div class="cart-panel">
+
+      <div class="cart-title">
+        🛒 Pesanan
+      </div>
+
+      <div id="cartItems" class="cart-items">
+        <div class="empty">
+          Belum ada pesanan
+        </div>
+      </div>
+
+      <div class="total">
+        Total:
+        <span id="total">Rp0</span>
+      </div>
+
+      <div class="payment">
+
+        <label>
+          💵 Uang Pembayaran
+        </label>
+
+        <input
+          type="number"
+          id="payment"
+          placeholder="Masukkan uang pelanggan"
+          min="0"
+        >
+
+      </div>
+
+      <div class="change">
+        💰 Kembalian:
+        <span id="change">Rp0</span>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="payAndPrint()"
+      >
+        🧾 BAYAR & CETAK STRUK
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="clearCart()"
+      >
+        🗑️ KOSONGKAN PESANAN
+      </button>
+
+      <button
+        class="btn btn-green"
+        onclick="showHistory()"
+      >
+        📋 RIWAYAT TRANSAKSI
+      </button>
+
+    </div>
+
+  </div>
+
+  <section
+    id="historySection"
+    class="history-section"
+  >
+
+    <div class="history-box">
+
+      <div class="history-buttons">
+
+        <button
+          onclick="hideHistory()"
+          style="background:#eee"
+        >
+          ← Kembali ke Kasir
+        </button>
+
+        <button
+          onclick="exportCSV()"
+          style="background:#159957;color:white"
+        >
+          📊 Export Excel
+        </button>
+
+        <button
+          onclick="deleteHistory()"
+          style="background:#ffdddd;color:#b00000"
+        >
+          🗑️ Hapus
+        </button>
+
+      </div>
+
+      <h2>📋 Riwayat Transaksi</h2>
+
+      <div id="historyList"></div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<div id="receipt"></div>
+
+<script>
+
+/* =========================
+   DATA MENU ROSEA
+========================= */
+
+const menu = [
+
+  ["Teh Original","TEA",{"Besar":5000}],
+  ["Teh Hijau","TEA",{"Besar":5000}],
+  ["Teh Susu","TEA",{"Kecil":5000,"Besar":8000}],
+  ["Teh Tarik","TEA",{"Kecil":6000,"Besar":8000}],
+  ["Teh Kurma","TEA",{"Kecil":6000,"Besar":10000}],
+  ["Lemon Tea","TEA",{"Kecil":6000,"Besar":10000}],
+  ["Apple Tea","TEA",{"Kecil":5000,"Besar":10000}],
+  ["Markisa Tea","TEA",{"Kecil":5000,"Besar":8000}],
+  ["Lecy Tea","TEA",{"Kecil":5000,"Besar":8000}],
+  ["Strawberry Tea","TEA",{"Kecil":5000,"Besar":8000}],
+
+  ["Thai Tea","MILK & FLAVOR",{"Kecil":8000,"Besar":10000}],
+  ["Chocolate","MILK & FLAVOR",{"Kecil":8000,"Besar":10000}],
+  ["Matcha","MILK & FLAVOR",{"Kecil":8000,"Besar":10000}],
+  ["Taro","MILK & FLAVOR",{"Kecil":8000,"Besar":10000}],
+  ["Red Velvet","MILK & FLAVOR",{"Kecil":10000,"Besar":8000}],
+  ["Coffee Gula Aren","MILK & FLAVOR",{"Besar":10000}],
+  ["Extra Joss Susu","MILK & FLAVOR",{"Kecil":6000,"Besar":10000}],
+  ["Kuku Bima Susu","MILK & FLAVOR",{"Kecil":6000,"Besar":10000}],
+  ["Milo","MILK & FLAVOR",{"Normal":10000}],
+  ["Nescafé + Milo","MILK & FLAVOR",{"Normal":10000}],
+  ["Nescafé Americano","MILK & FLAVOR",{"Normal":8000}],
+  ["Nescafé Gula Aren","MILK & FLAVOR",{"Normal":10000}],
+  ["Boba Brown Sugar","MILK & FLAVOR",{"Normal":10000}],
+
+  ["Jeruk Yakult","SEGAR & TRADISIONAL",{"Normal":10000}],
+  ["Jeruk Peras","SEGAR & TRADISIONAL",{"Kecil":5000,"Besar":10000}],
+  ["Es Jagung Hawai","SEGAR & TRADISIONAL",{"Kecil":7000,"Besar":10000}],
+  ["Cappuccino Cincau","SEGAR & TRADISIONAL",{"Kecil":7000,"Besar":10000}],
+  ["Dawet Gula Aren","SEGAR & TRADISIONAL",{"Kecil":7000,"Besar":10000}],
+  ["Cincau Gula Aren","SEGAR & TRADISIONAL",{"Kecil":7000,"Besar":10000}],
+
+  ["Alpukat Kocok","KOCOK",{"Normal":12000}],
+  ["Naga Kocok","KOCOK",{"Normal":12000}],
+
+  ["Jus Alpukat","JUICE",{"Kecil":9000,"Besar":14000}],
+  ["Jus Naga","JUICE",{"Kecil":8000,"Besar":13000}],
+  ["Jus Mangga","JUICE",{"Kecil":8000,"Besar":13000}],
+  ["Jus Strawberry","JUICE",{"Kecil":8000,"Besar":13000}],
+  ["Jus Melon","JUICE",{"Kecil":7000,"Besar":12000}],
+  ["Jus Semangka","JUICE",{"Kecil":7000,"Besar":12000}],
+  ["Jus Apel","JUICE",{"Kecil":8000,"Besar":12000}]
+
+];
+
+
+/* =========================
+   VAR
